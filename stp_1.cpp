@@ -8,10 +8,11 @@ void computeShortestTimes(int vCount, int eCount, int *from, int *to, int *depar
     {
         int first;
         int second;
+
         int third;
         int fourth;
     };
-
+	cout<<"hi"<<endl;
 	/*for(int i=0; i<eCount; i++){
        // int temp;
 		cout<<" "<<from[i]<<" "<<to[i]<<" "<<departure[i]<<" "<<duration[i]<<endl;
