@@ -8,11 +8,10 @@ void computeShortestTimes(int vCount, int eCount, int *from, int *to, int *depar
     {
         int first;
         int second;
-
         int third;
         int fourth;
     };
-	cout<<"hi"<<endl;
+
 	/*for(int i=0; i<eCount; i++){
        // int temp;
 		cout<<" "<<from[i]<<" "<<to[i]<<" "<<departure[i]<<" "<<duration[i]<<endl;
@@ -37,24 +36,35 @@ void computeShortestTimes(int vCount, int eCount, int *from, int *to, int *depar
 	}*/
 
 	stack<int>s;
+	bool visited[eCount]= {false};
 	vector<vector<int>>graph(esdg_edge);
 	//cout<<" "<<esdg_edge<<" "<<vCount<<" "<<eCount<<endl;
 	vector<int>shortest_path(vCount,INT_MAX);
 	shortest_path[0]=0;
+	for(auto x: shortest_path){
+		cout<<" "<<x<<" ";
+	}
+	cout<<endl;
 	for(int i=0;i<esdg_edge;i++)
 	{
 		int x,y;
 		x=esdg_from[i];
 		y=esdg_to[i];
-		//<<x<<"-->"<<y<<endl;
-
+		//cout<<"x-"<<x<<" y-"<<y<<endl;
+		//cout<<x<<"-->"<<y<<endl;
 		graph[x].push_back(y);
-		for(auto temp:temp_node){
-			if( x == 0 && temp.first == x )
-			{
+		int check = temp_node[x].first;
+		/*cout<<temp_node[x].first<<" ";
+		cout<<temp_node[x].second<<" ";
+		cout<<temp_node[x].third<<" ";
+		cout<<temp_node[x].fourth<<endl;*/
+		if( check == 0 && visited[x]==false)
+		{
 				//cout<<"--"<<temp.second<<endl;
 				s.push(x);
-			}
+				visited[x] = true;
+				//cout<<"x value -- "<<x<<endl;
+			
 		}
 	}
 
@@ -70,25 +80,27 @@ void computeShortestTimes(int vCount, int eCount, int *from, int *to, int *depar
 	while(s.empty()==false)
 	{
 		int e = s.top();
+		cout<<"line79-- "<<e<<endl;
         s.pop();
-		for(auto temp:temp_node){
 
-			if(temp.first == e){
-
-				shortest_path[temp_node[e].second]=
-				min(shortest_path[temp_node[e].second],(temp_node[e].fourth)
-				+shortest_path[temp_node[e].first]);
-        
-			}
+		shortest_path[temp_node[e].second]=min(shortest_path[temp_node[e].second],
+			(temp_node[e].fourth)+shortest_path[temp_node[e].first]);
+			
+		for(auto x: shortest_path){
+			cout<<" "<<x<<" ";
 		}
+			cout<<endl;
+		
 		for(auto x:graph[e])
 		{
-			s.push(x);
+				s.push(x);
+				//cout<<"x-- "<<x<<endl;
+				
 		} 
 	}
-	for(auto x: shortest_path){
+	/*for(auto x: shortest_path){
 		cout<<x<<endl;
-	}
+	}*/
 }
 
 void readInput_1(char *fileName_1, int &vCount, int &eCount, int *&from, int *&to, int *&departure, int *&duration)
@@ -108,11 +120,11 @@ void readInput_1(char *fileName_1, int &vCount, int &eCount, int *&from, int *&t
 		fin>>from[i]>>to[i]>>departure[i]>>duration[i]; 
 	}
 
-	for(int i=0; i<eCount; i++){
+	/*for(int i=0; i<eCount; i++){
        // int temp;
 		cout<<" "<<from[i]<<" "<<to[i]<<" "<<departure[i]<<" "<<duration[i]<<endl;
 	}
-	cout<<"##### line 95"<<endl;
+	cout<<"##### line 95"<<endl;*/
 }
 
 void readInput_2(char *fileName_2, int &esdg_vertice, int &esdg_edge, int *&esdg_from, int *&esdg_to, int *&esdg_link, int *&esdg_value, int &count)
@@ -147,10 +159,10 @@ void readInput_2(char *fileName_2, int &esdg_vertice, int &esdg_edge, int *&esdg
 			count++;
 		}
 	}
-	for(int i=0;i<count;i++){
+	/*for(int i=0;i<count;i++){
 		cout<<esdg_from[i]<<" "<<esdg_to[i]<<endl;
 	}
-	esdg_edge = count;
+	esdg_edge = count;*/
 	
 }
 
@@ -178,7 +190,7 @@ int main(int argc, char *argv[])
     readInput_2(fileName_2,esdg_vertice, esdg_edge,esdg_from,esdg_to,esdg_link,esdg_value,count);
 	esdg_vertice = eCount;
 	
-	cout<<eCount<<" "<<count<<endl;
+	//cout<<eCount<<" "<<count<<endl;
 
 	for(int i=0; i<1; i++)
 	{
